@@ -1,5 +1,8 @@
 library(caret)
 library(ranger)
+library(tidyverse)
+library(GGally)
+library(corrplot)
 
 train_data <- read.csv('pml-training.csv')
 
@@ -17,9 +20,15 @@ train_cols <- c("accel_accel_forearm_x",
                 "accel_belt_z",
                 "accel_dumbbell_x",
                 "accel_dumbbell_y",
-                "accel_dumbbell_z")
+                "accel_dumbbell_z",
+                "classe")
 train_data<- train_data[,colnames(train_data) %in% train_cols]
 head(train_data)
+
+ggpairs(train_data[,7:12],aes(col=classe,alpha=.4))
+
+corrplot(train_data,method='square')
+
 inTrain = createDataPartition(train_data$classe, p = 3/4)[[1]]
 training = train_data[inTrain,]
 testing = train_data[-inTrain,]
