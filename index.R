@@ -9,7 +9,7 @@ train_data <- read.csv('pml-training.csv')
 summary(train_data)
 head(train_data$accel_dumbbell_x)
 
-train_cols <- c("accel_accel_forearm_x",
+train_cols <- c("accel_forearm_x",
                 "accel_forearm_y",
                 "accel_forearm_z",
                 "accel_arm_x",
@@ -25,7 +25,7 @@ train_cols <- c("accel_accel_forearm_x",
 train_data<- train_data[,colnames(train_data) %in% train_cols]
 head(train_data)
 
-ggpairs(train_data[,7:12],aes(col=classe,alpha=.4))
+ggpairs(train_data[,c(1:7,13)],aes(col=classe,alpha=.4))
 
 corrplot(train_data,method='square')
 
