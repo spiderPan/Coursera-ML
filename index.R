@@ -7,8 +7,8 @@ library(h2o)
 library(mxnet)
 library(GGally)
 
-training<-read_csv("pml-training.CSV")
-testing<-read_csv("pml-testing.CSV")
+training<-read_csv("pml-training.csv")
+testing<-read_csv("pml-testing.csv")
 
 set.seed(0)
 
@@ -86,7 +86,7 @@ dim(validation.array) <- c(7, 7, 1, ncol(validation.x))
 m2 <- mx.model.FeedForward.create(m2.softmax, 
                                   X = train.array, 
                                   y = train.y,
-                                  num.round = 10, # This many will take a couple of hours on a CPU
+                                  num.round = 1, # This many will take a couple of hours on a CPU
                                   array.batch.size = 500,
                                   array.layout="colmajor",
                                   learning.rate = 0.01,
