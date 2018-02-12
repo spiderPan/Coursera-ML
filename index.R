@@ -7,7 +7,6 @@ library(h2o)
 library(mxnet)
 library(GGally)
 
-setwd("C:/Users/Owen/Dropbox/Analysis/Database/Practical ML")
 training<-read_csv("pml-training.CSV")
 testing<-read_csv("pml-testing.CSV")
 
