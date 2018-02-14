@@ -47,20 +47,20 @@ validation.x<-t(scale(validation.x))
 
 
 m2.data<-mx.symbol.Variable("data")
-
+arguments(m2.data)
 ## 1st convoluntional layer
-m2.conv1<-mx.symbol.Convolution(m2.data,kernel=c(5,5),num_filter=16)
+m2.conv1<-mx.symbol.Convolution(m2.data,kernel=c(5,5),num_filter=16,stride=c(1,1),pad=c(2,2))
 m2.bn1<-mx.symbol.BatchNorm(m2.conv1)
 m2.act1<-mx.symbol.Activation(m2.bn1,act_type="relu")
-m2.pool1<-mx.symbol.Pooling(m2.act1,pool_type='max',kernel=c(2,2),stride=c(2,2))
+m2.pool1<-mx.symbol.Pooling(m2.act1,pool_type='max',kernel=c(2,2))
 m2.drop1<-mx.symbol.Dropout(m2.pool1,p=.5)
 
 
 ## 2nd convoluntional layer
-m2.conv2<-mx.symbol.Convolution(m2.drop1,kernel=c(3,3),num_filter=32)
+m2.conv2<-mx.symbol.Convolution(m2.drop1,kernel=c(5,5),num_filter=32)
 m2.bn2<-mx.symbol.BatchNorm(m2.conv2)
 m2.act2<-mx.symbol.Activation(m2.bn2,act_type="relu")
-m2.pool2<-mx.symbol.Pooling(m2.act2,pool_type='max',kernel=c(2,2),stride=c(2,2))
+m2.pool2<-mx.symbol.Pooling(m2.act2,pool_type='max',kernel=c(2,2))
 m2.drop2<-mx.symbol.Dropout(m2.pool2,p=.5)
 m2.flatten<-mx.symbol.Flatten(m2.drop2)
 
@@ -86,7 +86,7 @@ dim(validation.array) <- c(7, 7, 1, ncol(validation.x))
 m2 <- mx.model.FeedForward.create(m2.softmax, 
                                   X = train.array, 
                                   y = train.y,
-                                  num.round = 1, # This many will take a couple of hours on a CPU
+                                  num.round = 10, # This many will take a couple of hours on a CPU
                                   array.batch.size = 500,
                                   array.layout="colmajor",
                                   learning.rate = 0.01,
