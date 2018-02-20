@@ -1,0 +1,34 @@
+---
+title: "Pan Project"
+author: "Banglanfeng Pan"
+date: "February 19, 2018"
+output: html_document
+---
+
+
+
+## Random Forest Model
+
+The model was using Random Forest and taking the following columns as inputs to predict the column `classe`.
+
+`accel_forearm_x`
+`accel_forearm_y`
+`accel_forearm_z`
+`accel_arm_x`
+`accel_arm_y`
+`accel_arm_z`
+`accel_belt_x`
+`accel_belt_y`
+`accel_belt_z`
+`accel_dumbbell_x`
+`accel_dumbbell_y`
+`accel_dumbbell_z`
+
+## Cross Validation
+
+Using the 75% as training set and the rest 25% will be testing set
+```
+inTrain = createDataPartition(train_data$classe, p = 3/4)[[1]]
+training = train_data[inTrain,]
+testing = train_data[-inTrain,]
+```
